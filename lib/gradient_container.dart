@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:roll_dice_app/styled_text.dart";
 
+var gradientAlignment = Alignment.center;
+
 class GradientContainer extends StatelessWidget {
   const GradientContainer({
     super.key,
@@ -9,11 +11,11 @@ class GradientContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: RadialGradient(
-          center: Alignment.center,
+          center: gradientAlignment,
           radius: 1.0,
-          colors: [
+          colors: const [
             Colors.yellow,
             Colors.green,
           ],
