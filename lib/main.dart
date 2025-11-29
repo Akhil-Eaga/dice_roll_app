@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(
     MaterialApp(
+      theme: ThemeData(fontFamily: "Avenir"),
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
+            gradient: RadialGradient(
+              center: Alignment.center,
+              radius: 1.0,
               colors: [
-                Colors.blue,
+                Colors.yellow,
                 Colors.green,
               ],
             ),
@@ -18,7 +19,11 @@ void main() {
           child: const Center(
             child: Text(
               "Hello World!",
-              style: TextStyle(color: Colors.white, fontSize: 24),
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
