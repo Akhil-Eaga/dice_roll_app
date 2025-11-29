@@ -1,7 +1,12 @@
 import "package:flutter/material.dart";
 import "package:roll_dice_app/styled_text.dart";
 
-var gradientAlignment = Alignment.center;
+// keyword `const` is used for compile-time constants
+// keyword `final` is used for run-time constants
+
+// `const` is better for performance since the value is locked in at compile-time
+// `final` is better used when the value is determined dynamically at run time but remains unchanged afterwards
+const gradientAlignment = Alignment.center;
 
 class GradientContainer extends StatelessWidget {
   const GradientContainer({
@@ -11,11 +16,11 @@ class GradientContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: RadialGradient(
           center: gradientAlignment,
           radius: 1.0,
-          colors: const [
+          colors: [
             Colors.yellow,
             Colors.green,
           ],
