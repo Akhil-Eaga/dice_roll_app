@@ -1,5 +1,6 @@
 import "dart:math";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 final randomizer = Random();
 
@@ -13,7 +14,26 @@ class DiceRoller extends StatefulWidget {
 }
 
 class _DiceRollerState extends State<DiceRoller> {
+  late List<MemoryImage> diceImages;
   int activeDiceImage = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadDiceImages();
+
+    // app opens with a random dice roll by default
+    activeDiceImage = randomizer.nextInt(6) + 1;
+  }
+
+  Future<void> _loadDiceImages() async {
+    diceImages = [];
+    for (int diceIndex = 1; diceIndex <= 6; diceIndex++) {
+      final data = await rootBundle.load("assets/images/dice-$diceIndex.webp");
+      diceImages.add(MemoryImage(data.buffer.asUint8List()));
+    }
+    setState(() {}); // Trigger rebuild when loaded
+  }
 
   void rollDice() {
     setState(() {
@@ -22,31 +42,15 @@ class _DiceRollerState extends State<DiceRoller> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // Images pre-caching for better performance and smoother user experience.
-    // addPostFrameCallback ensures this runs after the first frame is rendered.
-    // initState is called before the widget is inserted into the widget tree,
-    // so we use this callback to access the context safely after the first frame is built and context is valid
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      for (int diceIndex = 1; diceIndex <= 6; diceIndex++) {
-        precacheImage(AssetImage("assets/images/dice-$diceIndex.png"), context);
-      }
-    });
-
-    // app opens with a random dice roll by default
-    activeDiceImage = randomizer.nextInt(6) + 1;
-  }
-
-  @override
   Widget build(BuildContext context) {
+    if (diceImages.isEmpty) {
+      return const CircularProgressIndicator();
+    }
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          "assets/images/dice-$activeDiceImage.png",
-          width: 200,
-        ),
+        Image(image: diceImages[activeDiceImage - 1], width: 200),
         const SizedBox(
           height: 20,
         ), // Used for space between the dice image and button
