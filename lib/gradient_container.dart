@@ -9,7 +9,6 @@ import "package:roll_dice_app/styled_text.dart";
 const startAlignment = Alignment.topLeft;
 const endAlignment = Alignment.bottomRight;
 
-
 class GradientContainer extends StatelessWidget {
   const GradientContainer({
     super.key,
@@ -29,7 +28,32 @@ class GradientContainer extends StatelessWidget {
         ),
       ),
       child: Center(
-        child: Image.asset("assets/images/dice-2.png", width: 200),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(
+              "assets/images/dice-2.png",
+              width: 200,
+            ),
+            const SizedBox(
+              height: 20,
+            ), // Used for space between the dice image and button
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.grey.shade800,
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+              ),
+              onPressed: () {},
+              child: const Text(
+                "Roll Dice",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
