@@ -5,7 +5,7 @@ void main() {
   runApp(
     MaterialApp(
       theme: ThemeData(fontFamily: "Avenir"),
-      home: const Scaffold(
+      home: Scaffold(
         body: GradientContainer(colors: [
           Colors.yellow,
           Colors.green,
