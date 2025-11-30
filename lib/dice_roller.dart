@@ -13,12 +13,29 @@ class DiceRoller extends StatefulWidget {
 }
 
 class _DiceRollerState extends State<DiceRoller> {
-  var activeDiceImage = 2;
+  int activeDiceImage = 1;
 
   void rollDice() {
     setState(() {
       activeDiceImage = randomizer.nextInt(6) + 1;
-    }); 
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Images pre-caching for better performance and smoother user experience.
+    // addPostFrameCallback ensures this runs after the first frame is rendered.
+    // initState is called before the widget is inserted into the widget tree,
+    // so we use this callback to access the context safely after the first frame is built and context is valid
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      for (int diceIndex = 1; diceIndex <= 6; diceIndex++) {
+        precacheImage(AssetImage("assets/images/dice-$diceIndex.png"), context);
+      }
+    });
+
+    // app opens with a random dice roll by default
+    activeDiceImage = randomizer.nextInt(6) + 1;
   }
 
   @override

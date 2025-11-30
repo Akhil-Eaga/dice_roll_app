@@ -17,7 +17,6 @@ class GradientContainer extends StatelessWidget {
 
   final List<Color> colors;
   
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +27,7 @@ class GradientContainer extends StatelessWidget {
           colors: colors,
         ),
       ),
-      child: Center(
+      child: const Center(
         child: DiceRoller()
       ),
     );
